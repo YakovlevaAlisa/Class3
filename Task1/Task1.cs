@@ -81,7 +81,7 @@ namespace Task1
             return listCards;
         }
         //случайная раздача карт одному игроку
-        internal static Hand Shuffle(Deck deck, Hand hand)
+        private static Hand Shuffle(Deck deck, Hand hand)
         {
             for (int i = 0; i < DeckSize / 2; i++)
             {
@@ -110,7 +110,7 @@ namespace Task1
         // Один раунд игры (в том числе спор при равных картах).
         // Возвращается победитель раунда и набор карт, выложенных на стол.
 
-        internal static Card PutTheCardsOnTheTable(Hand playerHand, Table table)
+        private static Card PutTheCardsOnTheTable(Hand playerHand, Table table)
         {
             Card playerCard = playerHand[0];
 
@@ -121,7 +121,7 @@ namespace Task1
         }
 
         // Добавляет карты со стола в руку победителя, возвращает победителя.
-        internal static Player AddingСardsFromTheTable(Dictionary<Player, Hand> hands, Table table, Player? winner)
+        private static Player AddingСardsFromTheTable(Dictionary<Player, Hand> hands, Table table, Player? winner)
         {
             if (winner == null)
             {
@@ -151,7 +151,7 @@ namespace Task1
                 winner = (whichRound % 2 == 1) ? RoundWinner(card1, card2) : RoundWinner(card2, card1);
             }
             
-            if ((hands[Player.Player1].Count != 0 || hands[Player.Player2].Count != 0))
+            if (hands[Player.Player1].Count != 0 || hands[Player.Player2].Count != 0 || winner != null)
                 winner = AddingСardsFromTheTable(hands, table, winner);
             else
                 winner = Player.Player1;
@@ -162,7 +162,7 @@ namespace Task1
         // Полный цикл игры (возвращается победивший игрок)
         // в процессе игры печатаются ходы
 
-        internal static void Output(Dictionary<Player, Hand> hands, Tuple<Player, Table> tupleAfterRound,
+        private static void Output(Dictionary<Player, Hand> hands, Tuple<Player, Table> tupleAfterRound,
                                     Player playerWhoLaidTheFirstCard, Player winner)
         {
             if (hands[Player.Player1].Count == 0 && hands[Player.Player2].Count == 0)
